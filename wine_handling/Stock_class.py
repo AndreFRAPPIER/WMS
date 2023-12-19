@@ -50,8 +50,8 @@ class Stock_management:
         title.place(x = 50, y = 100, width = 1000)
 
         label_bottle_name = Label(self.root, text = "Nom", font = "arial", bg = "#f0e9f7").place(x = 50, y = 150)
-        label_bottle_type = Label(self.root, text = "Type", font = "arial", bg = "#f0e9f7").place(x = 400, y = 150)
-        label_bottle_color = Label(self.root, text = "Couleur", font = "arial", bg = "#f0e9f7").place(x = 750, y = 150)
+        label_bottle_type = Label(self.root, text = "Type", font = "arial", bg = "#f0e9f7").place(x = 390, y = 150)
+        label_bottle_color = Label(self.root, text = "Couleur", font = "arial", bg = "#f0e9f7").place(x = 735, y = 150)
 
         txt_bottle_name = Entry(self.root, textvariable = self.var_bottle_name, font = "arial", bg = "white").place(x = 150, y = 150, width = 180)
         cmb_type = ttk.Combobox(self.root, textvariable = self.var_bottle_type, values = ("Selectionner", "Vin", "Champagne - Blanc de blanc", "Champagne - Brut", "Champagne - Sec", "Champagne - Demi-Sec"), state = "readonly", justify = CENTER, font = ("arial", 15))
@@ -62,16 +62,16 @@ class Stock_management:
         cmb_color.current(0)
 
         label_bottle_appelation = Label(self.root, text = "Appélation", font = "arial", bg = "#f0e9f7").place(x = 50, y = 200)
-        label_bottle_domain = Label(self.root, text = "Domaine", font = "arial", bg = "#f0e9f7").place(x = 400, y = 200)
-        label_bottle_ytesting = Label(self.root, text = "consommée le", font = "arial", bg = "#f0e9f7").place(x = 750, y = 200)
+        label_bottle_domain = Label(self.root, text = "Domaine", font = "arial", bg = "#f0e9f7").place(x = 390, y = 200)
+        label_bottle_ytesting = Label(self.root, text = "consommée le", font = "arial", bg = "#f0e9f7").place(x = 735, y = 200)
 
         txt_bottle_appelation = Entry(self.root, textvariable = self.var_bottle_appelation, font = "arial", bg = "white").place(x = 150, y = 200)
         txt_bottle_domain = Entry(self.root, textvariable = self.var_bottle_domain, font = "arial", bg = "white").place(x = 500, y = 200)
         txt_bottle_ytesting = Entry(self.root, textvariable = self.var_bottle_ytesting, font = "arial", bg = "white").place(x = 850, y = 200)
 
         label_bottle_year = Label(self.root, text = "Année", font = "arial", bg = "#f0e9f7").place(x = 50, y = 250)
-        label_bottle_location = Label(self.root, text = "Emplacement", font = "arial", bg = "#f0e9f7").place(x = 400, y = 250)
-        label_bottle_quantity = Label(self.root, text = "Quantitée", font = "arial", bg = "#f0e9f7").place(x = 750, y = 250)
+        label_bottle_location = Label(self.root, text = "Emplacement", font = "arial", bg = "#f0e9f7").place(x = 390, y = 250)
+        label_bottle_quantity = Label(self.root, text = "Quantitée", font = "arial", bg = "#f0e9f7").place(x = 735, y = 250)
 
         txt_bottle_price = Entry(self.root, textvariable = self.var_bottle_year, font = "arial", bg = "white").place(x = 150, y = 250)
         txt_bottle_location = Entry(self.root, textvariable = self.var_bottle_location, font = "arial", bg = "white").place(x = 500, y = 250)
@@ -284,10 +284,10 @@ class Print_stock:
         cmb_search.current(0)
 
         txt_search = Entry(search_frame, textvariable = self.search_txt, font = ("arial", 15), bg = "white", borderwidth = 2, relief = SOLID)
-        txt_search.place(x = 200, y = 10)
+        txt_search.place(x = 200, y = 10, width = 210)
 
         button_search = Button(search_frame, command = self.search, text = "Recherche", font = ("arial", 15), bg = "grey")
-        button_search.place(x = 410, y = 10, height = 30)
+        button_search.place(x = 420, y = 10, height = 30)
 
         stock_frame = Frame(self.root, bd = 3, relief = FLAT)
         stock_frame.place(x = 0, y = 100, relwidth = 1, height = 400)
