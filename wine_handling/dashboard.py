@@ -14,7 +14,7 @@ class WMS:
         title = Label(self.root, text = "Wine Management System", image = self.icon_title, compound = LEFT, font = ("times new roman", 40, "bold"), bg = "#ba5390", fg = "white", anchor = "w", padx = 20).place(x = 0, y = 0, relwidth = 1, height = 70 )
 
         self.menu_logo = Image.open("assets/inventory_management.png")
-        self.menu_logo = self.menu_logo.resize((200, 200), Image.ANTIALIAS)
+        self.menu_logo = self.menu_logo.resize((200, 200))
         self.menu_logo = ImageTk.PhotoImage(self.menu_logo)
 
         left_menu = Frame(self.root, bd = 2, relief = FLAT, bg = "white")
