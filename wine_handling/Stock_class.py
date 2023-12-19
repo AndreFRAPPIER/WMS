@@ -39,10 +39,10 @@ class Stock_management:
         cmb_search.current(0)
 
         txt_search = Entry(search_frame, textvariable = self.search_txt, font = ("arial", 15), bg = "white", borderwidth = 2, relief = SOLID)
-        txt_search.place(x = 200, y = 10)
+        txt_search.place(x = 200, y = 10, width = 210)
 
         button_search = Button(search_frame, command = self.search, text = "Recherche", font = ("arial", 15), bg = "grey")
-        button_search.place(x = 410, y = 10, height = 30)
+        button_search.place(x = 420, y = 10, height = 30)
 
         #-----------------------------------------------------------------#
 
