@@ -64,6 +64,7 @@ class WMS:
         self.new_obj = Print_stock(self.new_window)
 
     def update_content(self):
+        #print("ok")
         con = sq.connect(database = r"wms.db")
         cur = con.cursor()
         try:
@@ -76,52 +77,52 @@ class WMS:
 
             cur.execute("select quantity from stock where type LIKE '%Vin%'")
             temp = cur.fetchall()
-            qty = 0
+            tot_wine = 0
             for i in range (len(temp)):
-                qty = qty + int(temp[i][0])
-            self.lbl_tot_wine_bottle.config(text = f"Nombre total de \nbouteilles de Vin :\n{str(qty)}")
+                tot_wine = tot_wine + int(temp[i][0])
+            self.lbl_tot_wine_bottle.config(text = f"Nombre total de \nbouteilles de Vin :\n{str(tot_wine)}")
 
             cur.execute("select quantity from stock where type LIKE '%Champagne%'")
             temp = cur.fetchall()
-            qty = 0
+            tot_champ = 0
             for i in range (len(temp)):
-                qty = qty + int(temp[i][0])
-            self.lbl_tot_champ_bottle.config(text = f"Nombre total de \nbouteilles de Champagne :\n{str(qty)}")
+                tot_champ = tot_champ + int(temp[i][0])
+            self.lbl_tot_champ_bottle.config(text = f"Nombre total de \nbouteilles de Champagne :\n{str(tot_champ)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Bordeau%'")
             temp = cur.fetchall()
-            qty = 0
+            tot_bord = 0
             for i in range (len(temp)):
-                qty = qty + int(temp[i][0])
-            self.lbl_tot_red_wine.config(text = f"Nombre de bouteille de \nBordeau:\n{str(qty)}")
+                tot_bord = tot_bord + int(temp[i][0])
+            self.lbl_tot_red_wine.config(text = f"Nombre de bouteille de \nBordeau:\n{str(tot_bord)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Bourgogne%'")
             temp = cur.fetchall()
-            qty = 0
+            tot_bourg = 0
             for i in range (len(temp)):
-                qty = qty + int(temp[i][0])
-            self.lbl_tot_white_wine.config(text = f"Nombre de bouteille de \nBourgogne:\n{str(qty)}")
+                tot_bourg = tot_bourg + int(temp[i][0])
+            self.lbl_tot_white_wine.config(text = f"Nombre de bouteille de \nBourgogne:\n{str(tot_bourg)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Alsace%'")
             temp = cur.fetchall()
-            qty = 0
+            tot_als = 0
             for i in range (len(temp)):
-                qty = qty + int(temp[i][0])
-            self.lbl_tot_rose_wine.config(text = f"Nombre de bouteille de \nl'Alsace:\n{str(qty)}")
+                tot_als = tot_als + int(temp[i][0])
+            self.lbl_tot_rose_wine.config(text = f"Nombre de bouteille de \nl'Alsace:\n{str(tot_als)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Languedoc%'")
             temp = cur.fetchall()
-            qty = 0
+            tot_lang = 0
             for i in range (len(temp)):
-                qty = qty + int(temp[i][0])
-            self.lbl_tot_white_white.config(text = f"Nombre de bouteille du \nLanguedoc\n{str(qty)}")
+                tot_lang = tot_lang + int(temp[i][0])
+            self.lbl_tot_white_white.config(text = f"Nombre de bouteille du \nLanguedoc\n{str(tot_lang)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Rhone%'")
             temp = cur.fetchall()
-            qty = 0
+            tot_rhone = 0
             for i in range (len(temp)):
-                qty = qty + int(temp[i][0])
-            self.lbl_tot_brut_champ.config(text = f"Nombre de bouteille de la\nVallée du Rhone\n{str(qty)}")
+                tot_rhone = tot_rhone + int(temp[i][0])
+            self.lbl_tot_brut_champ.config(text = f"Nombre de bouteille de la\nVallée du Rhone\n{str(tot_rhone)}")
 
         except Exception as ex:
             messagebox.showerror("Erreur", f"Erreur due à : {str(ex)}.")

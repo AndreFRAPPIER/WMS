@@ -9,7 +9,7 @@ from database_management import create_db
 class Stock_management:
     def __init__(self, root) -> None:
         self.root = root
-        self.root.geometry("1100x500+220+130")
+        self.root.geometry("1350x700+220+130")
         self.root.title("Stock Management")
         self.root.config(bg = "#f0e9f7")
         self.root.focus_force()
@@ -18,6 +18,9 @@ class Stock_management:
 
         self.search_by = StringVar()
         self.search_txt = StringVar()
+
+        self.sort_by = StringVar()
+        self.sort_by_ord = StringVar()
 
         self.var_bottle_type = StringVar()
         self.var_bottle_color = StringVar()
@@ -32,9 +35,12 @@ class Stock_management:
         #-----------------------------------------------------------------#
 
         search_frame = LabelFrame(self.root, text = "Recherche", bg = "white")
-        search_frame.place(x = 250, y = 20, width = 600, height = 70)
+        search_frame.place(x = 50, y = 20, width = 600, height = 70)
 
-        cmb_search = ttk.Combobox(search_frame, textvariable = self.search_by, values = ("Selectionner", "name", "color", "type"), state = "readonly", justify = CENTER, font = ("arial", 15))
+        sort_frame = LabelFrame(self.root, text = "Trier", bg = "white")
+        sort_frame.place(x = 750, y = 20, width = 550, height = 70)
+
+        cmb_search = ttk.Combobox(search_frame, textvariable = self.search_by, values = ("name", "appelation", "domain", "type", "color", "year", "location"), state = "readonly", justify = CENTER, font = ("arial", 15))
         cmb_search.place(x = 10, y = 10, width = 180)
         cmb_search.current(0)
 
@@ -43,6 +49,17 @@ class Stock_management:
 
         button_search = Button(search_frame, command = self.search, text = "Recherche", font = ("arial", 15), bg = "grey")
         button_search.place(x = 420, y = 10, height = 30)
+
+        cmb_sort = ttk.Combobox(sort_frame, textvariable = self.sort_by, values = ("name", "appelation", "domain", "type", "color", "year", "location", "quantity"), state = "readonly", justify = CENTER, font = ("arial", 15))
+        cmb_sort.place(x = 35, y = 10, width = 180)
+        cmb_sort.current(0)
+
+        cmb_sort_ord = ttk.Combobox(sort_frame, textvariable = self.sort_by_ord, values = ("croissant", "décroissant"), state = "readonly", justify = CENTER, font = ("arial", 15))
+        cmb_sort_ord.place(x = 245, y = 10, width = 180)
+        cmb_sort_ord.current(0)
+
+        button_sort = Button(sort_frame, command = self.show, text = "Trier", font = ("arial", 15), bg = "grey")
+        button_sort.place(x = 450, y = 10, height = 30)
 
         #-----------------------------------------------------------------#
 
@@ -86,7 +103,7 @@ class Stock_management:
         #-----------------------------------------------------------------#
 
         stock_frame = Frame(self.root, bd = 3, relief = FLAT)
-        stock_frame.place(x = 0, y = 350, relwidth = 1, height = 150)
+        stock_frame.place(x = 0, y = 350, relwidth = 1, height = 350)
 
         scrolly = Scrollbar(stock_frame, orient = VERTICAL)
         scrollx = Scrollbar(stock_frame, orient = HORIZONTAL)
@@ -152,10 +169,14 @@ class Stock_management:
         con.close()
 
     def show(self):
+        order_by = self.sort_by.get()
         con = sq.connect(database = r"wms.db")
         cur = con.cursor()
         try:
-            cur.execute("select * from stock")
+            if self.sort_by_ord.get() == "croissant":
+                cur.execute(f"select * from stock order by {order_by} asc")
+            else:
+                cur.execute(f"select * from stock order by {order_by} desc")
             rows = cur.fetchall()
             self.stock_table.delete(*self.stock_table.get_children())
             for row in rows:
@@ -242,7 +263,7 @@ class Stock_management:
         self.var_bottle_ytesting.set("-")
         self.search_by.set("Selectionner")
         self.search_txt.set("")
-
+        self.show()
 
     def search(self):
         con = sq.connect(database = r"wms.db")
@@ -268,7 +289,7 @@ class Stock_management:
 class Print_stock:
     def __init__(self, root) -> None:
         self.root = root
-        self.root.geometry("1100x500+220+130")
+        self.root.geometry("1350x700+220+130")
         self.root.title("Stock Management")
         self.root.config(bg = "white")
         self.root.focus_force()
@@ -276,21 +297,38 @@ class Print_stock:
         self.search_by = StringVar()
         self.search_txt = StringVar()
 
+        self.sort_by = StringVar()
+        self.sort_by_ord = StringVar()
+
         search_frame = LabelFrame(self.root, text = "Recherche", bg = "white")
-        search_frame.place(x = 250, y = 20, width = 600, height = 70)
+        search_frame.place(x = 50, y = 20, width = 600, height = 70)
+
+        sort_frame = LabelFrame(self.root, text = "Trier", bg = "white")
+        sort_frame.place(x = 750, y = 20, width = 550, height = 70)
 
         cmb_search = ttk.Combobox(search_frame, textvariable = self.search_by, values = ("Selectionner", "name", "color", "type"), state = "readonly", justify = CENTER, font = ("arial", 15))
-        cmb_search.place(x = 10, y = 10, width = 180)
+        cmb_search.place(x = 35, y = 10, width = 180)
         cmb_search.current(0)
 
         txt_search = Entry(search_frame, textvariable = self.search_txt, font = ("arial", 15), bg = "white", borderwidth = 2, relief = SOLID)
-        txt_search.place(x = 200, y = 10, width = 210)
+        txt_search.place(x = 225, y = 10, width = 210)
 
         button_search = Button(search_frame, command = self.search, text = "Recherche", font = ("arial", 15), bg = "grey")
-        button_search.place(x = 420, y = 10, height = 30)
+        button_search.place(x = 445, y = 10, height = 30)
+
+        cmb_sort = ttk.Combobox(sort_frame, textvariable = self.sort_by, values = ("name", "appelation", "domain", "type", "color", "year", "location", "quantity"), state = "readonly", justify = CENTER, font = ("arial", 15))
+        cmb_sort.place(x = 35, y = 10, width = 180)
+        cmb_sort.current(0)
+
+        cmb_sort_ord = ttk.Combobox(sort_frame, textvariable = self.sort_by_ord, values = ("croissant", "décroissant"), state = "readonly", justify = CENTER, font = ("arial", 15))
+        cmb_sort_ord.place(x = 245, y = 10, width = 180)
+        cmb_sort_ord.current(0)
+
+        button_sort = Button(sort_frame, command = self.show, text = "Trier", font = ("arial", 15), bg = "grey")
+        button_sort.place(x = 450, y = 10, height = 30)
 
         stock_frame = Frame(self.root, bd = 3, relief = FLAT)
-        stock_frame.place(x = 0, y = 100, relwidth = 1, height = 400)
+        stock_frame.place(x = 0, y = 100, relwidth = 1, height = 600)
 
         scrolly = Scrollbar(stock_frame, orient = VERTICAL)
         scrollx = Scrollbar(stock_frame, orient = HORIZONTAL)
@@ -328,10 +366,14 @@ class Print_stock:
         self.show()
 
     def show(self):
+        order_by = self.sort_by.get()
         con = sq.connect(database = r"wms.db")
         cur = con.cursor()
         try:
-            cur.execute("select * from stock")
+            if self.sort_by_ord.get() == "croissant":
+                cur.execute(f"select * from stock order by {order_by} asc")
+            else:
+                cur.execute(f"select * from stock order by {order_by} desc")
             rows = cur.fetchall()
             self.stock_table.delete(*self.stock_table.get_children())
             for row in rows:
@@ -345,9 +387,9 @@ class Print_stock:
         cur = con.cursor()
         try:
             if self.search_by.get() == "Selectionner":
-                messagebox.showerror("Erreur", "Précisz votre recherche", parent =  self.root)
+                messagebox.showerror("Erreur", "Précisez votre recherche", parent =  self.root)
             elif self.search_txt.get() == "":
-                messagebox.showerror("Erreur", "Précisz votre recherche", parent =  self.root)
+                messagebox.showerror("Erreur", "Précisez votre recherche", parent =  self.root)
             else :
                 cur.execute("select * from stock where " + self.search_by.get() + " LIKE '%" + self.search_txt.get() + "%'")
                 rows = cur.fetchall()
