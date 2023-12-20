@@ -38,23 +38,20 @@ class WMS:
         self.lbl_tot_champ_bottle = Label(self.root, text = "Nombre total de \nbouteilles de Champagne :\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#9fec7d")
         self.lbl_tot_champ_bottle.place(x = 950, y = 100, height = 150, width = 300)
 
-        self.lbl_tot_red_wine = Label(self.root, text = "Nombre de bouteille de \nvin rouge:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
+        self.lbl_tot_red_wine = Label(self.root, text = "Nombre de bouteille de \nBordeau:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
         self.lbl_tot_red_wine.place(x = 250, y = 300, height = 150, width = 300)
 
-        self.lbl_tot_white_wine = Label(self.root, text = "Nombre de bouteille de \nvin blanc:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
+        self.lbl_tot_white_wine = Label(self.root, text = "Nombre de bouteille de \nBourgogne:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
         self.lbl_tot_white_wine.place(x = 600, y = 300, height = 150, width = 300)
 
-        self.lbl_tot_rose_wine = Label(self.root, text = "Nombre de bouteille de \nvin rosé:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
+        self.lbl_tot_rose_wine = Label(self.root, text = "Nombre de bouteille de \nl'Alsace:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
         self.lbl_tot_rose_wine.place(x = 950, y = 300, height = 150, width = 300)
 
-        self.lbl_tot_white_white = Label(self.root, text = "Nombre de bouteille de \nChampagne blanc de blanc\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#ffdd73")
+        self.lbl_tot_white_white = Label(self.root, text = "Nombre de bouteille du \nLanguedoc\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#ffdd73")
         self.lbl_tot_white_white.place(x = 250, y = 500, height = 150, width = 300)
 
-        self.lbl_tot_brut_champ = Label(self.root, text = "Nombre de bouteille de \nChampagne brut\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#ffdd73")
+        self.lbl_tot_brut_champ = Label(self.root, text = "Nombre de bouteille de la\nVallée du Rhone\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#ffdd73")
         self.lbl_tot_brut_champ.place(x = 600, y = 500, height = 150, width = 300)
-
-        self.lbl_tot_sec_champ = Label(self.root, text = "Nombre de bouteille de \nChampagne sec/demi-sec\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#ffdd73")
-        self.lbl_tot_sec_champ.place(x = 950, y = 500, height = 150, width = 300)
 
         self.update_content()
 
@@ -70,44 +67,64 @@ class WMS:
         con = sq.connect(database = r"wms.db")
         cur = con.cursor()
         try:
-            cur.execute("select * from stock")
-            tot_bottle = cur.fetchall()
-            self.lbl_tot_bottle.config(text = f"Nombre total de bouteilles :\n{str(len(tot_bottle))}")
+            cur.execute("select quantity from stock")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_bottle.config(text = f"Nombre total de bouteilles :\n{str(qty)}")
 
-            cur.execute("select * from stock where type LIKE '%Vin%'")
-            tot_wine_bottle = cur.fetchall()
-            self.lbl_tot_wine_bottle.config(text = f"Nombre total de \nbouteilles de Vin :\n{str(len(tot_wine_bottle))}")
+            cur.execute("select quantity from stock where type LIKE '%Vin%'")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_wine_bottle.config(text = f"Nombre total de \nbouteilles de Vin :\n{str(qty)}")
 
-            cur.execute("select * from stock where type LIKE '%Champagne%'")
-            tot_champ_bottle = cur.fetchall()
-            self.lbl_tot_champ_bottle.config(text = f"Nombre total de \nbouteilles de Champagne :\n{str(len(tot_champ_bottle))}")
+            cur.execute("select quantity from stock where type LIKE '%Champagne%'")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_champ_bottle.config(text = f"Nombre total de \nbouteilles de Champagne :\n{str(qty)}")
 
-            cur.execute("select * from stock where color LIKE '%Rouge%'")
-            tot_red_wine = cur.fetchall()
-            self.lbl_tot_red_wine.config(text = f"Nombre de bouteille de \nvin rouge:\n{str(len(tot_red_wine))}")
+            cur.execute("select quantity from stock where appelation LIKE '%Bordeau%'")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_red_wine.config(text = f"Nombre de bouteille de \nBordeau:\n{str(qty)}")
 
-            cur.execute("select * from stock where color LIKE '%Blanc%'")
-            tot_white_wine = cur.fetchall()
-            self.lbl_tot_white_wine.config(text = f"Nombre de bouteille de \nvin blanc:\n{str(len(tot_white_wine))}")
+            cur.execute("select quantity from stock where appelation LIKE '%Bourgogne%'")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_white_wine.config(text = f"Nombre de bouteille de \nBourgogne:\n{str(qty)}")
 
-            cur.execute("select * from stock where color LIKE '%Rosé%'")
-            tot_rose_wine = cur.fetchall()
-            self.lbl_tot_rose_wine.config(text = f"Nombre de bouteille de \nvin rosé:\n{str(len(tot_rose_wine))}")
+            cur.execute("select quantity from stock where appelation LIKE '%Alsace%'")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_rose_wine.config(text = f"Nombre de bouteille de \nl'Alsace:\n{str(qty)}")
 
-            cur.execute("select * from stock where type LIKE '%Blanc de blanc%'")
-            tot_white_white = cur.fetchall()
-            self.lbl_tot_white_white.config(text = f"Nombre de bouteille de \nChampagne blanc de blanc\n{str(len(tot_white_white))}")
+            cur.execute("select quantity from stock where appelation LIKE '%Languedoc%'")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_white_white.config(text = f"Nombre de bouteille du \nLanguedoc\n{str(qty)}")
 
-            cur.execute("select * from stock where type LIKE '%Brute%'")
-            tot_brut = cur.fetchall()
-            self.lbl_tot_brut_champ.config(text = f"Nombre de bouteille de \nChampagne brut\n{str(len(tot_brut))}")
+            cur.execute("select quantity from stock where appelation LIKE '%Rhone%'")
+            temp = cur.fetchall()
+            qty = 0
+            for i in range (len(temp)):
+                qty = qty + int(temp[i][0])
+            self.lbl_tot_brut_champ.config(text = f"Nombre de bouteille de la\nVallée du Rhone\n{str(qty)}")
 
-            cur.execute("select * from stock where type LIKE '%Sec%'")
-            tot_sec = cur.fetchall()
-            self.lbl_tot_sec_champ.config(text = f"Nombre de bouteille de \nChampagne sec/demi-sec\n{str(len(tot_sec))}")
         except Exception as ex:
             messagebox.showerror("Erreur", f"Erreur due à : {str(ex)}.")
-        con.close()
 
 if __name__ == "__main__":
     root = Tk()
