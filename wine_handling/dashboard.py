@@ -3,55 +3,69 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from Stock_class import Stock_management, Print_stock
+from alcool_class import Alcool_management, Print_alcool
 
 class WMS:
     def __init__(self, root) -> None:
         self.root = root
         self.root.geometry("1350x700+0+0")
-        self.root.title("Wine Management System")
+        self.root.title("Alcool Management System")
+
+        #-----------------------------------------------------------------#
 
         self.icon_title = PhotoImage(file = "assets/icon_title.png")
-        title = Label(self.root, text = "Wine Management System", image = self.icon_title, compound = LEFT, font = ("times new roman", 40, "bold"), bg = "#ba5390", fg = "white", anchor = "w", padx = 20).place(x = 0, y = 0, relwidth = 1, height = 70 )
+        title = Label(self.root, text = "Alcool Management System", image = self.icon_title, compound = LEFT, font = ("times new roman", 40, "bold"), bg = "#ba5390", fg = "white", anchor = "w", padx = 20).place(x = 0, y = 0, relwidth = 1, height = 70 )
 
         self.menu_logo = Image.open("assets/inventory_management.png")
         self.menu_logo = self.menu_logo.resize((200, 200))
         self.menu_logo = ImageTk.PhotoImage(self.menu_logo)
 
+        #-----------------------------------------------------------------#
+
         left_menu = Frame(self.root, bd = 2, relief = FLAT, bg = "white")
-        left_menu.place(x = 0, y = 102, width = 200, height = 565)
+        left_menu.place(x = 0, y = 102, width = 250, height = 565)
 
         lbl_menu_logo = Label(left_menu, image = self.menu_logo)
         lbl_menu_logo.pack(side = TOP, fill = X)
-
         lbl_menu = Label(left_menu, text = "Menu", font = ("times new roman", 20), bg = "#d9c5f2").pack(side = TOP, fill = X)
-        button_stock = Button(left_menu, text = "Afficher le Stock", command = self.print_stock, font = ("times new roman", 20, "bold"), bg = "white", bd = 3)
+    
+        button_stock = Button(left_menu, text = "Afficher les\nvins et champagnes", command = self.print_stock, font = ("times new roman", 18, "bold"), bg = "white", bd = 3, relief = FLAT)
         button_stock.pack(side = TOP, fill = X)
-        button_manage_stock = Button(left_menu, text = "Gérer le Stock", command = self.stock_management, font = ("times new roman", 20, "bold"), bg = "white", bd = 3)
+
+        button_alcool = Button(left_menu, text = "Afficher les alcools", command = self.print_alcool, font = ("times new roman", 18, "bold"), bg = "white", bd = 3, relief = FLAT)
+        button_alcool.pack(side = TOP, fill = X)
+    
+        button_manage_stock = Button(left_menu, text = "Gérer les\nvins et champagnes", command = self.stock_management, font = ("times new roman", 18, "bold"), bg = "white", bd = 3, relief = FLAT)
         button_manage_stock.pack(side = TOP, fill = X)
 
+        button_manage_alcool = Button(left_menu, text = "Gérer alcools", command = self.alcool_management, font = ("times new roman", 18, "bold"), bg = "white", bd = 3, relief = FLAT)
+        button_manage_alcool.pack(side = TOP, fill = X)
+
+        #-----------------------------------------------------------------#
+
         self.lbl_tot_bottle = Label(self.root, text = "Nombre total de bouteilles :\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#9fec7d")
-        self.lbl_tot_bottle.place(x = 250, y = 100, height = 150, width = 300)
+        self.lbl_tot_bottle.place(x = 275, y = 100, height = 150, width = 300)
 
         self.lbl_tot_wine_bottle = Label(self.root, text = "Nombre total de \nbouteilles de Vin :\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#9fec7d")
-        self.lbl_tot_wine_bottle.place(x = 600, y = 100, height = 150, width = 300)
+        self.lbl_tot_wine_bottle.place(x = 625, y = 100, height = 150, width = 300)
 
         self.lbl_tot_champ_bottle = Label(self.root, text = "Nombre total de \nbouteilles de Champagne :\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#9fec7d")
-        self.lbl_tot_champ_bottle.place(x = 950, y = 100, height = 150, width = 300)
+        self.lbl_tot_champ_bottle.place(x = 975, y = 100, height = 150, width = 300)
 
         self.lbl_tot_red_wine = Label(self.root, text = "Nombre de bouteille de \nBordeau:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
-        self.lbl_tot_red_wine.place(x = 250, y = 300, height = 150, width = 300)
+        self.lbl_tot_red_wine.place(x = 275, y = 300, height = 150, width = 300)
 
         self.lbl_tot_white_wine = Label(self.root, text = "Nombre de bouteille de \nBourgogne:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
-        self.lbl_tot_white_wine.place(x = 600, y = 300, height = 150, width = 300)
+        self.lbl_tot_white_wine.place(x = 625, y = 300, height = 150, width = 300)
 
         self.lbl_tot_rose_wine = Label(self.root, text = "Nombre de bouteille de \nl'Alsace:\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#79c6ff")
-        self.lbl_tot_rose_wine.place(x = 950, y = 300, height = 150, width = 300)
+        self.lbl_tot_rose_wine.place(x = 975, y = 300, height = 150, width = 300)
 
         self.lbl_tot_white_white = Label(self.root, text = "Nombre de bouteille du \nLanguedoc\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#ffdd73")
-        self.lbl_tot_white_white.place(x = 250, y = 500, height = 150, width = 300)
+        self.lbl_tot_white_white.place(x = 275, y = 500, height = 150, width = 300)
 
         self.lbl_tot_brut_champ = Label(self.root, text = "Nombre de bouteille de la\nVallée du Rhone\n0", font = ("times new roman", 20), bd = 5, relief = FLAT, bg = "#ffdd73")
-        self.lbl_tot_brut_champ.place(x = 600, y = 500, height = 150, width = 300)
+        self.lbl_tot_brut_champ.place(x = 625, y = 500, height = 150, width = 300)
 
         self.update_content()
 
@@ -62,6 +76,14 @@ class WMS:
     def print_stock(self):
         self.new_window = Toplevel(self.root)
         self.new_obj = Print_stock(self.new_window)
+
+    def alcool_management(self):
+        self.new_window = Toplevel(self.root)
+        self.new_obj = Alcool_management(self.new_window)
+    
+    def print_alcool(self):
+        self.new_window = Toplevel(self.root)
+        self.new_obj = Print_alcool(self.new_window)
 
     def update_content(self):
         #print("ok")
@@ -125,7 +147,7 @@ class WMS:
             self.lbl_tot_brut_champ.config(text = f"Nombre de bouteille de la\nVallée du Rhone\n{str(tot_rhone)}")
 
         except Exception as ex:
-            messagebox.showerror("Erreur", f"Erreur due à : {str(ex)}.")
+            messagebox.showerror("Erreur", f"Erreur due à une quantité non décimale : {str(ex)}.")
 
 if __name__ == "__main__":
     root = Tk()
