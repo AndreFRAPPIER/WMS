@@ -116,35 +116,35 @@ class WMS:
             tot_bord = 0
             for i in range (len(temp)):
                 tot_bord = tot_bord + int(temp[i][0])
-            self.lbl_tot_red_wine.config(text = f"Nombre de bouteille de \nBordeau:\n{str(tot_bord)}")
+            self.lbl_tot_red_wine.config(text = f"Nombre de bouteilles de \nBordeaux:\n{str(tot_bord)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Bourgogne%'")
             temp = cur.fetchall()
             tot_bourg = 0
             for i in range (len(temp)):
                 tot_bourg = tot_bourg + int(temp[i][0])
-            self.lbl_tot_white_wine.config(text = f"Nombre de bouteille de \nBourgogne:\n{str(tot_bourg)}")
+            self.lbl_tot_white_wine.config(text = f"Nombre de bouteilles de \nBourgogne:\n{str(tot_bourg)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Alsace%'")
             temp = cur.fetchall()
             tot_als = 0
             for i in range (len(temp)):
                 tot_als = tot_als + int(temp[i][0])
-            self.lbl_tot_rose_wine.config(text = f"Nombre de bouteille de \nl'Alsace:\n{str(tot_als)}")
+            self.lbl_tot_rose_wine.config(text = f"Nombre de bouteilles de \nl'Alsace:\n{str(tot_als)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Languedoc%'")
             temp = cur.fetchall()
             tot_lang = 0
             for i in range (len(temp)):
                 tot_lang = tot_lang + int(temp[i][0])
-            self.lbl_tot_white_white.config(text = f"Nombre de bouteille du \nLanguedoc\n{str(tot_lang)}")
+            self.lbl_tot_white_white.config(text = f"Nombre de bouteilles du \nLanguedoc\n{str(tot_lang)}")
 
             cur.execute("select quantity from stock where appelation LIKE '%Rhone%'")
             temp = cur.fetchall()
             tot_rhone = 0
             for i in range (len(temp)):
                 tot_rhone = tot_rhone + int(temp[i][0])
-            self.lbl_tot_brut_champ.config(text = f"Nombre de bouteille de la\nVallée du Rhone\n{str(tot_rhone)}")
+            self.lbl_tot_brut_champ.config(text = f"Nombre de bouteilles de la\nVallée du Rhone\n{str(tot_rhone)}")
 
         except Exception as ex:
             messagebox.showerror("Erreur", f"Erreur due à une quantité non décimale : {str(ex)}.")

@@ -2,7 +2,7 @@ import sqlite3 as sq
 from tkinter import *
 from tkinter import ttk, messagebox
 from PIL import Image, ImageTk
-from database_management import create_tab_wine
+from database_management import create_tab_alcool
 
 class Alcool_management:
     def __init__(self, root) -> None:
@@ -11,7 +11,7 @@ class Alcool_management:
         self.root.title("Stock Management")
         self.root.config(bg = "#f0e9f7")
         self.root.focus_force()
-        create_tab_wine()
+        create_tab_alcool()
 
         #-----------------------------------------------------------------#
 
@@ -359,7 +359,7 @@ class Print_alcool:
         self.search_txt.set("")
         self.show()
 
-if __name__ == "__main__":
-    root = Tk()
-    obj = Print_alcool(root)
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = Tk()
+#     obj = Print_alcool(root)
+#     root.mainloop()

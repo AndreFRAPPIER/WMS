@@ -422,7 +422,7 @@ class Print_stock:
             messagebox.showerror("Erreur", f"Erreur due à : {str(ex)}.")
         con.close()
 
-if __name__ == "__main__":
-    root = Tk()
-    obj = Stock_management(root)
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = Tk()
+#     obj = Stock_management(root)
+#     root.mainloop()

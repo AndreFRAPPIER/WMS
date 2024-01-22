@@ -12,4 +12,5 @@ def create_tab_alcool():
     cur.execute("CREATE TABLE IF NOT EXISTS alcool(name TEXT, marque TEXT, age INT, quantite INT, id_lot INTEGER PRIMARY KEY AUTOINCREMENT)")
     con.commit()
 
-create_tab_wine()
+# if __name__ == "__main__":
+#     create_tab_wine()
